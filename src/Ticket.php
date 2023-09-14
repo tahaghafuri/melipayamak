@@ -2,10 +2,10 @@
 
 namespace Melipayamak;
 
+use RuntimeException;
 
 class Ticket
 {
-	
 	protected $username;
 	
 	protected $password;
@@ -16,14 +16,8 @@ class Ticket
 	
 	public function __construct($username,$password)
 	{
-		
-		
 		if (is_null($username)||is_null($password)) {
-			
-			die('username/password is empty');
-			
-			exit;
-			
+			throw new RuntimeException('username/password is empty');
 		}
 		
 		ini_set("soap.wsdl_cache_enabled", "0");
@@ -33,12 +27,10 @@ class Ticket
 		$this->password = $password;
 		
 		$this->client = new \SoapClient(self::PATH);
-		
 	}
 	
 	public function add($title,$content,$aws=true)
 	{
-		
 		$result = $this->client->AddTicket([   
 		'username' => $this->username,
 		'password' => $this->password,
@@ -49,13 +41,10 @@ class Ticket
 		)->AddTicketResult;
 		
 		return $result;
-		
 	}
 	
 	public function getReceived($ticketOwner,$ticketType,$keyword)
 	{
-		
-		
 		$result = $this->client->GetReceivedTickets([   
 		'username' => $this->username,
 		'password' => $this->password,
@@ -66,12 +55,10 @@ class Ticket
 		)->GetReceivedTicketsResult;
 		
 		return $result;
-		
 	}
 	
 	public function getReceivedCount($ticketType)
 	{
-		
 		$result = $this->client->GetReceivedTicketsCount([   
 		'username' => $this->username,
 		'password' => $this->password,
@@ -80,13 +67,10 @@ class Ticket
 		)->GetReceivedTicketsCountResult;
 		
 		return $result;
-		
 	}
 	
 	public function getSent($ticketOwner,$ticketType,$keyword)
 	{
-		
-		
 		$result = $this->client->GetSentTickets([   
 		'username' => $this->username,
 		'password' => $this->password,
@@ -97,12 +81,10 @@ class Ticket
 		)->GetSentTicketsResult;
 		
 		return $result;
-		
 	}
 	
 	public function getSentCount($ticketType)
 	{
-		
 		$result = $this->client->GetSentTicketsCount([   
 		'username' => $this->username,
 		'password' => $this->password,
@@ -111,12 +93,10 @@ class Ticket
 		)->GetSentTicketsCountResult;
 		
 		return $result;
-		
 	}
 	
 	public function response($ticketId,$type,$content,$alertWithSms=true)
 	{
-		
 		$result = $this->client->ResponseTicket([   
 		'username' => $this->username,
 		'password' => $this->password,
@@ -128,8 +108,8 @@ class Ticket
 		)->ResponseTicketResult;
 		
 		return $result;
-		
 	}
-	
-	
+
 }
+
+?>

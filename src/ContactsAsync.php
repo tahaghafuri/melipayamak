@@ -2,10 +2,10 @@
 
 namespace Melipayamak;
 
+use RuntimeException;
 
 class ContactsAsync
 {
-	
 	protected $username;
 	
 	protected $password;
@@ -16,14 +16,8 @@ class ContactsAsync
 	
 	public function __construct($username,$password)
 	{
-		
-		
 		if (is_null($username)||is_null($password)) {
-			
-			die('username/password is empty');
-			
-			exit;
-			
+			throw new RuntimeException('username/password is empty');
 		}
 		
 		ini_set("soap.wsdl_cache_enabled", "0");
@@ -36,11 +30,7 @@ class ContactsAsync
 		
 	}
 
-
-
-
 	public function execute(){
-
 		$method = '';
 		$requestIds = [];
 
@@ -95,13 +85,8 @@ class ContactsAsync
 		$this->queue = array();
 	}
 
-
-
-
-	
 	public function addGroup($groupName,$Descriptions,$showToChilds)
 	{
-		
 		$data = [
 			'username'=> $this->username,
 			'password' => $this->password,
@@ -117,7 +102,6 @@ class ContactsAsync
 	
 	public function add($options)
 	{
-		
 		$data = $options + [
 			'username'=> $this->username,
 			'password' => $this->password
@@ -125,12 +109,10 @@ class ContactsAsync
 		
 		array_push($this->queue, 'AddContact');
 		array_push($this->queue, $data);
-		
 	}
 	
 	public function checkMobileExist($mobileNumber)
 	{
-		
 		$data = [
 			'username'=> $this->username,
 			'password' => $this->password,
@@ -139,12 +121,10 @@ class ContactsAsync
 		
 		array_push($this->queue, 'CheckMobileExistInContact');
 		array_push($this->queue, $data);
-		
 	}
 	
 	public function get($groupId,$keyword,$from,$count)
 	{
-		
 		$data = [
 			'username' => $this->username,
 			'password' => $this->password,
@@ -156,12 +136,10 @@ class ContactsAsync
 		
 		array_push($this->queue, 'GetContacts');
 		array_push($this->queue, $data);
-		
 	}
 	
 	public function getGroups()
 	{
-		
 		$data = [
 			'username'=> $this->username,
 			'password' => $this->password
@@ -169,12 +147,10 @@ class ContactsAsync
 		
 		array_push($this->queue, 'GetGroups');
 		array_push($this->queue, $data);
-		
 	}
 	
 	public function change($options)
 	{
-		
 		$data = $options + [
 			'username'=> $this->username,
 			'password' => $this->password
@@ -182,12 +158,10 @@ class ContactsAsync
 		
 		array_push($this->queue, 'ChangeContact');
 		array_push($this->queue, $data);
-		
 	}
 	
 	public function remove($mobilenumber)
 	{
-		
 		$data = [
 			'username'=> $this->username,
 			'password' => $this->password,
@@ -196,12 +170,10 @@ class ContactsAsync
 		
 		array_push($this->queue, 'RemoveContact');
 		array_push($this->queue, $data);
-		
 	}
 	
 	public function getEvents($contactId)
 	{
-		
 		$data = [
 			'username'=> $this->username,
 			'password' => $this->password,
@@ -210,8 +182,8 @@ class ContactsAsync
 		
 		array_push($this->queue, 'GetContactEvents');
 		array_push($this->queue, $data);
-		
 	}
 	
-	
 }
+
+?>

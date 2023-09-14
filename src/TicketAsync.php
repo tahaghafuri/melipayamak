@@ -2,10 +2,10 @@
 
 namespace Melipayamak;
 
+use RuntimeException;
 
 class TicketAsync
 {
-	
 	protected $username;
 	
 	protected $password;
@@ -16,14 +16,8 @@ class TicketAsync
 	
 	public function __construct($username,$password)
 	{
-		
-		
 		if (is_null($username)||is_null($password)) {
-			
-			die('username/password is empty');
-			
-			exit;
-			
+			throw new RuntimeException('username/password is empty');
 		}
 		
 		ini_set("soap.wsdl_cache_enabled", "0");
@@ -33,13 +27,11 @@ class TicketAsync
 		$this->password = $password;
 		
 		$this->queue = array();
-		
 	}
 
 
 
 	public function execute(){
-
 		$method = '';
 		$requestIds = [];
 
@@ -100,7 +92,6 @@ class TicketAsync
 	
 	public function add($title,$content,$aws=true)
 	{
-		
 		$data = [   
 			'username' => $this->username,
 			'password' => $this->password,
@@ -111,12 +102,10 @@ class TicketAsync
 
 		array_push($this->queue, 'AddTicket');
 		array_push($this->queue, $data);
-		
 	}
 	
 	public function getReceived($ticketOwner,$ticketType,$keyword)
 	{
-		
 		$data = [   
 			'username' => $this->username,
 			'password' => $this->password,
@@ -131,7 +120,6 @@ class TicketAsync
 	
 	public function getReceivedCount($ticketType)
 	{
-		
 		$data = [   
 			'username' => $this->username,
 			'password' => $this->password,
@@ -144,7 +132,6 @@ class TicketAsync
 	
 	public function getSent($ticketOwner,$ticketType,$keyword)
 	{
-		
 		$data = [   
 			'username' => $this->username,
 			'password' => $this->password,
@@ -159,7 +146,6 @@ class TicketAsync
 	
 	public function getSentCount($ticketType)
 	{
-		
 		$data = [   
 			'username' => $this->username,
 			'password' => $this->password,
@@ -173,7 +159,6 @@ class TicketAsync
 	
 	public function response($ticketId,$type,$content,$alertWithSms=true)
 	{
-		
 		$data = [   
 			'username' => $this->username,
 			'password' => $this->password,
@@ -185,8 +170,8 @@ class TicketAsync
 		
 		array_push($this->queue, 'ResponseTicket');
 		array_push($this->queue, $data);
-		
 	}
-	
-	
+
 }
+
+?>

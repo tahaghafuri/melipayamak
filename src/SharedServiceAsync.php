@@ -2,8 +2,9 @@
 
 namespace Melipayamak;
 
-class SharedServiceAsync{
+use RuntimeException;
 
+class SharedServiceAsync{
     protected $username;
 
     protected $password;
@@ -15,14 +16,8 @@ class SharedServiceAsync{
 
     public function __construct($username,$password)
     {
-
-
         if (is_null($username)||is_null($password)) {
-
-            die('username/password is empty');
-
-            exit;
-
+            throw new RuntimeException('username/password is empty');
         }
 
         ini_set("soap.wsdl_cache_enabled", "0");
@@ -32,11 +27,9 @@ class SharedServiceAsync{
         $this->password = $password;
 
         $this->queue = array();
-
     }
 
     public function execute(){
-
         $method = '';
         $requestIds = [];
 
@@ -91,7 +84,6 @@ class SharedServiceAsync{
         $this->queue = array();
     }
 
-
     public function getSharedServiceBody(){
         $data = [
             'username'=> $this->username,
@@ -115,3 +107,5 @@ class SharedServiceAsync{
         array_push($this->queue, $data);
     }
 }
+
+?>

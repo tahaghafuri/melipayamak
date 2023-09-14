@@ -5,7 +5,6 @@ namespace Melipayamak;
 
 class SmsRest extends BaseSms
 {
-	
 	const PATH = "https://rest.payamak-panel.com/api/SendSMS/%s";
 	
 	protected $username;
@@ -14,14 +13,11 @@ class SmsRest extends BaseSms
 	
 	public function __construct($username,$password)
 	{
-		
 		parent::__construct($username,$password);
-		
 	}
 	
 	protected function execute($url, $data = null)
 	{
-		
 		$fields_string = "";
 		
 		if (!is_null($data)) {
@@ -62,13 +58,10 @@ class SmsRest extends BaseSms
 		curl_close($handle);
 
 		return $response;
-		
-		
 	}
 	
 	public function send($to,$from,$text,$isFlash=false)
 	{
-		
 		$url = $this->getPath(self::PATH,'SendSMS');
 		
 		$data = [
@@ -81,12 +74,10 @@ class SmsRest extends BaseSms
 		];
 		
 		return $this->execute($url,$data);
-		
 	}
 	
 	public function sendByBaseNumber($text,$to,$bodyId)
 	{
-		
 		$url = $this->getPath(self::PATH,'BaseServiceNumber');
 		
 		$data = [
@@ -98,12 +89,10 @@ class SmsRest extends BaseSms
 		];
 		
 		return $this->execute($url,$data);
-		
 	}
 	
 	public function isDelivered($id)
 	{
-		
 		$url = $this->getPath(self::PATH,'GetDeliveries2');
 		
 		$data = [
@@ -113,13 +102,10 @@ class SmsRest extends BaseSms
 		];
 		
 		return $this->execute($url,$data);
-		
 	}
 	
 	public function getMessages($location,$index,$count,$from='')
 	{
-		
-		
 		$url = $this->getPath(self::PATH,'GetMessages');
 		
 		$options = [
@@ -133,13 +119,10 @@ class SmsRest extends BaseSms
 		];
 		
 		return $this->execute($url,$options);
-		
-		
 	}
 	
 	public function getCredit()
 	{
-		
 		$url = $this->getPath(self::PATH,'GetCredit');
 		
 		$data=[
@@ -148,12 +131,10 @@ class SmsRest extends BaseSms
 		];
 		
 		return $this->execute($url,$data);
-		
 	}
 	
 	public function getBasePrice()
 	{
-		
 		$url = $this->getPath(self::PATH,'GetBasePrice');
 		
 		$data=[
@@ -162,12 +143,10 @@ class SmsRest extends BaseSms
 		];
 		
 		return $this->execute($url,$data);
-		
 	}
 	
 	public function getNumbers()
 	{
-		
 		$url = $this->getPath(self::PATH,'GetUserNumbers');
 		
 		$data=[
@@ -176,7 +155,8 @@ class SmsRest extends BaseSms
 		];
 		
 		return $this->execute($url,$data);
-		
 	}
 	
 }
+
+?>

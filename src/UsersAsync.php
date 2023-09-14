@@ -2,10 +2,10 @@
 
 namespace Melipayamak;
 
+use RuntimeException;
 
 class UsersAsync
 {
-	
 	protected $username;
 	
 	protected $password;
@@ -16,14 +16,8 @@ class UsersAsync
 	
 	public function __construct($username,$password)
 	{
-		
-		
 		if (is_null($username)||is_null($password)) {
-			
-			die('username/password is empty');
-			
-			exit;
-			
+			throw new RuntimeException('username/password is empty');
 		}
 		
 		ini_set("soap.wsdl_cache_enabled", "0");
@@ -33,13 +27,9 @@ class UsersAsync
 		$this->password = $password;
 		
 		$this->queue = array();
-		
 	}
 
-
-
 	public function execute(){
-
 		$method = '';
 		$requestIds = [];
 
@@ -94,11 +84,8 @@ class UsersAsync
 		$this->queue = array();
 	}
 
-
-	
 	public function addPayment($options)
 	{
-		
 		$data = $options + [
 			'username' => $this->username,
 			'password' => $this->password
@@ -106,12 +93,10 @@ class UsersAsync
 		
 		array_push($this->queue, 'AddPayment');
 		array_push($this->queue, $data);
-		
 	}
 	
 	public function add($options)
 	{
-		
 		$data = $options + [
 			'username'=> $this->username,
 			'password' => $this->password
@@ -119,12 +104,10 @@ class UsersAsync
 		
 		array_push($this->queue, 'AddUser');
 		array_push($this->queue, $data);
-		
 	}
 	
 	public function addComplete($options)
 	{
-		
 		$data = $options + [
 			'username'=> $this->username,
 			'password' => $this->password
@@ -132,12 +115,10 @@ class UsersAsync
 		
 		array_push($this->queue, 'AddUserComplete');
 		array_push($this->queue, $data);
-		
 	}
 	
 	public function addWithLocation($options)
 	{
-		
 		$data = $options + [
 			'username'=> $this->username,
 			'password' => $this->password
@@ -145,12 +126,10 @@ class UsersAsync
 		
 		array_push($this->queue, 'AddUserWithLocation');
 		array_push($this->queue, $data);
-		
 	}
 	
 	public function authenticate()
 	{
-		
 		$data = [
 			'username'=> $this->username,
 			'password' => $this->password
@@ -158,12 +137,10 @@ class UsersAsync
 		
 		array_push($this->queue, 'AuthenticateUser');
 		array_push($this->queue, $data);
-		
 	}
 	
 	public function changeCredit($amount,$description,$targetUsername,$GetTax)
 	{
-		
 		$data = [
 			'username'=> $this->username,
 			'password' => $this->password,
@@ -175,12 +152,10 @@ class UsersAsync
 		
 		array_push($this->queue, 'ChangeUserCredit');
 		array_push($this->queue, $data);
-		
 	}
 	
 	public function forgotPassword($mobileNumber,$emailAddress,$targetUsername)
 	{
-		
 		$data = [
 			'username'=> $this->username,
 			'password' => $this->password,
@@ -191,12 +166,10 @@ class UsersAsync
 		
 		array_push($this->queue, 'ForgotPassword');
 		array_push($this->queue, $data);
-		
 	}
 	
 	public function getBasePrice($targetUsername)
 	{
-		
 		$data = [
 			'username'=> $this->username,
 			'password' => $this->password,
@@ -205,12 +178,10 @@ class UsersAsync
 		
 		array_push($this->queue, 'GetUserBasePrice');
 		array_push($this->queue, $data);
-		
 	}
 	
 	public function remove($targetUsername)
 	{
-		
 		$data = [
 			'username'=> $this->username,
 			'password' => $this->password,
@@ -219,12 +190,10 @@ class UsersAsync
 		
 		array_push($this->queue, 'RemoveUser');
 		array_push($this->queue, $data);
-		
 	}
 	
 	public function getCredit($targetUsername)
 	{
-		
 		$data = [
 			'username'=> $this->username,
 			'password' => $this->password,
@@ -233,12 +202,10 @@ class UsersAsync
 		
 		array_push($this->queue, 'GetUserCredit');
 		array_push($this->queue, $data);
-		
 	}
 	
 	public function getDetails($targetUsername)
 	{
-		
 		$data = [
 			'username'=> $this->username,
 			'password' => $this->password,
@@ -247,12 +214,10 @@ class UsersAsync
 		
 		array_push($this->queue, 'GetUserDetails');
 		array_push($this->queue, $data);
-		
 	}
 	
 	public function getNumbers()
 	{
-		
 		$data = [
 			'username'=> $this->username,
 			'password' => $this->password
@@ -260,12 +225,10 @@ class UsersAsync
 		
 		array_push($this->queue, 'GetUserNumbers');
 		array_push($this->queue, $data);
-		
 	}
 	
 	public function getProvinces()
 	{
-		
 		$data = [
 			'username'=> $this->username,
 			'password' => $this->password
@@ -273,12 +236,10 @@ class UsersAsync
 		
 		array_push($this->queue, 'GetProvinces');
 		array_push($this->queue, $data);
-		
 	}
 	
 	public function getCities($provinceId)
 	{
-		
 		$data = [
 			'username'=> $this->username,
 			'password' => $this->password,
@@ -287,12 +248,10 @@ class UsersAsync
 		
 		array_push($this->queue, 'GetCities');
 		array_push($this->queue, $data);
-		
 	}
 	
 	public function getExpireDate()
 	{
-		
 		$data = [
 			'username'=> $this->username,
 			'password' => $this->password
@@ -305,7 +264,6 @@ class UsersAsync
 	
 	public function getTransactions($targetUsername,$creditType,$dateFrom,$dateTo,$keyword)
 	{
-		
 		$data = [
 			'username'=> $this->username,
 			'password' => $this->password,
@@ -318,12 +276,10 @@ class UsersAsync
 		
 		array_push($this->queue, 'GetUserTransactions');
 		array_push($this->queue, $data);
-		
 	}
 	
 	public function get()
 	{
-		
 		$data = [
 			'username'=> $this->username,
 			'password' => $this->password
@@ -331,12 +287,10 @@ class UsersAsync
 		
 		array_push($this->queue, 'GetUsers');
 		array_push($this->queue, $data);
-		
 	}
 	
 	public function hasFilter($text)
 	{
-		
 		$data = [
 			'username'=> $this->username,
 			'password' => $this->password,
@@ -345,9 +299,8 @@ class UsersAsync
 		
 		array_push($this->queue, 'HasFilter');
 		array_push($this->queue, $data);
-		
 	}
-	
-	
-	
+
 }
+
+?>

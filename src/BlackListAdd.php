@@ -2,41 +2,35 @@
 
 namespace Melipayamak;
 
-class BlackListAdd{
-	
+use RuntimeException;
+
+class BlackListAdd
+{
 	const PATH = 'http://api.payamak-panel.com/post/blacklist.asmx?wsdl';
-	
+
 	protected $username;
-	
+
 	protected $password;
-	
+
 	protected $client;
 
-	
-	
-	public function __construct($username,$password)
+	public function __construct($username, $password)
 	{
-		
-		
-		if (is_null($username)||is_null($password)) {
-			
-			die('username/password is empty');
-			
-			exit;
-			
+		if (is_null($username) || is_null($password)) {
+			throw new RuntimeException('username/password is empty');
 		}
-		
+
 		ini_set("soap.wsdl_cache_enabled", "0");
-		
+
 		$this->username = $username;
-		
+
 		$this->password = $password;
-		
+
 		$this->client = new \SoapClient(self::PATH);
-		
 	}
-	
-	public function addblacklist($title){
+
+	public function addblacklist($title)
+	{
 		$data = array(
 			"username" => $this->username,
 			"password" => $this->password,
@@ -45,5 +39,6 @@ class BlackListAdd{
 		$result = $this->client->BlackListAdd($data)->BlackListAddResult;
 		return $result;
 	}
-	
 }
+
+?>

@@ -6,7 +6,6 @@ namespace Melipayamak;
 //Async Version
 class SmsRestAsync extends BaseSms
 {
-	
 	const PATH = "https://rest.payamak-panel.com/api/SendSMS/%s";
 	
 	protected $username;
@@ -23,7 +22,6 @@ class SmsRestAsync extends BaseSms
 	
 	public function execute()
 	{
-
 		$mh = curl_multi_init();
 		$handlers = array();
 
@@ -46,8 +44,6 @@ class SmsRestAsync extends BaseSms
 	        
 	    }
 
-
-
 	    $responses = array();
 
 	    do {
@@ -69,12 +65,10 @@ class SmsRestAsync extends BaseSms
 		curl_multi_close($mh);
 
 		return $responses;
-		
 	}
 	
 	public function send($to,$from,$text,$isFlash=false)
 	{
-		
 		$url = $this->getPath(self::PATH,'SendSMS');
 		
 		$data = [
@@ -92,7 +86,6 @@ class SmsRestAsync extends BaseSms
 	
 	public function isDelivered($id)
 	{
-		
 		$url = $this->getPath(self::PATH,'GetDeliveries2');
 		
 		$data = [
@@ -102,13 +95,11 @@ class SmsRestAsync extends BaseSms
 		];
 		
 		array_push($this->queue, $url);
-		array_push($this->queue, $data);	
-		
+		array_push($this->queue, $data);
 	}
 	
 	public function getMessages($location,$index,$count,$from='')
 	{
-		
 		$url = $this->getPath(self::PATH,'GetMessages');
 		
 		$data = [
@@ -127,7 +118,6 @@ class SmsRestAsync extends BaseSms
 	
 	public function getCredit()
 	{
-		
 		$url = $this->getPath(self::PATH,'GetCredit');
 		
 		$data = [
@@ -141,7 +131,6 @@ class SmsRestAsync extends BaseSms
 	
 	public function getBasePrice()
 	{
-		
 		$url = $this->getPath(self::PATH,'GetBasePrice');
 		
 		$data = [
@@ -155,7 +144,6 @@ class SmsRestAsync extends BaseSms
 	
 	public function getNumbers()
 	{
-		
 		$url = $this->getPath(self::PATH,'GetUserNumbers');
 		
 		$data = [
@@ -168,3 +156,5 @@ class SmsRestAsync extends BaseSms
 	}
 	
 }
+
+?>

@@ -1,30 +1,9 @@
 # Melipayamak PHP
 
-
-<div dir='rtl'>
-
-### معرفی وب سرویس ملی پیامک
-ملی پیامک یک وب سرویس کامل برای ارسال و دریافت پیامک و پیامک صوتی و مدیریت کامل خدمات دیگر است که براحتی میتوانید از آن استفاده کنید.
-
-<hr>
-
 ### نصب
 
-<p>قبل از نصب نیاز به ثبت نام در سایت ملی پیامک دارید.</p>
-<p></p>
-
-[**ثبت نام به همراه دریافت 200 پیامک هدیه جهت تست وبسرویس**](http://www.melipayamak.com/)
-
-
-<p>پس ازثبت نام  برای نصب از راههای زیر میتوانید اقدام کنید.</p>
-
-
-
-</div>
-
-
 ```php
-composer require melipayamak/php:1.0.0
+composer require tahaghafuri/melipayamak
 ```
 
 
@@ -39,7 +18,7 @@ composer.json
 
 
 ```json
-"melipayamak/php": "1.0.0"
+"tahaghafuri/melipayamak": "*1.0.0*"
 ```
 
 

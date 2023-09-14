@@ -1,25 +1,21 @@
 <?php
 
-class BlackListAddAsync{
+use RuntimeException;
 
+class BlackListAddAsync
+{
     protected $username;
 
     protected $password;
 
     protected $queue;
 
-    const PATH= 'http://api.payamak-panel.com/post/blacklist.asmx?wsdl';
+    const PATH = 'http://api.payamak-panel.com/post/blacklist.asmx?wsdl';
 
-    public function __construct($username,$password)
+    public function __construct($username, $password)
     {
-
-
-        if (is_null($username)||is_null($password)) {
-
-            die('username/password is empty');
-
-            exit;
-
+        if (is_null($username) || is_null($password)) {
+            throw new RuntimeException('username/password is empty');
         }
 
         ini_set("soap.wsdl_cache_enabled", "0");
@@ -29,11 +25,10 @@ class BlackListAddAsync{
         $this->password = $password;
 
         $this->queue = array();
-
     }
 
-    public function execute(){
-
+    public function execute()
+    {
         $method = '';
         $requestIds = [];
 
@@ -61,11 +56,10 @@ class BlackListAddAsync{
 
         foreach ($this->queue as $key => $value) {
             # code...
-            if(!is_array($value))
+            if (!is_array($value))
                 $method = $value;
 
             else $requestIds[] = $client->{$method}($value);
-
         }
 
         $responses = $client->run();
@@ -88,7 +82,8 @@ class BlackListAddAsync{
         $this->queue = array();
     }
 
-    public function addblacklist($title){
+    public function addblacklist($title)
+    {
         $data = array(
             "username" => $this->username,
             "passowrd" => $this->password
@@ -97,8 +92,6 @@ class BlackListAddAsync{
         array_push($this->queue, 'Addblacklist');
         array_push($this->queue, $data);
     }
-
-
-
-
 }
+
+?>

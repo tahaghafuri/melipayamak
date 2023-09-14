@@ -1,9 +1,9 @@
 <?php
 namespace Melipayamak;
 
+use RuntimeException;
+
 class SharedService{
-	
-	
 	protected $username;
 	
 	protected $password;
@@ -14,14 +14,8 @@ class SharedService{
 	
 	public function __construct($username,$password)
 	{
-		
-		
 		if (is_null($username)||is_null($password)) {
-			
-			die('username/password is empty');
-			
-			exit;
-			
+			throw new RuntimeException('username/password is empty');
 		}
 		
 		ini_set("soap.wsdl_cache_enabled", "0");
@@ -59,3 +53,5 @@ class SharedService{
 	}
 	
 }
+
+?>

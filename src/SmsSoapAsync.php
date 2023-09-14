@@ -2,11 +2,8 @@
 
 namespace Melipayamak;
 
-
-
 class SmsSoapAsync extends BaseSms
 {
-	
 	const PATH = "http://api.payamak-panel.com/post/%s.asmx?wsdl";
 	
 	
@@ -39,10 +36,7 @@ class SmsSoapAsync extends BaseSms
 		$this->queue = array();
 	}
 
-
-
 	public function execute(){
-
 		$endpoint = $this->queue[0];
 		$method = '';
 		$requestIds = [];
@@ -83,7 +77,6 @@ class SmsSoapAsync extends BaseSms
 					// $client = new \Soap\ParallelSoapClient($value, $options);
 					// $client->__setLocation($value);
 				}
-				//$value is method name
 				else $method = $value;
 			}
 			else {
@@ -116,21 +109,14 @@ class SmsSoapAsync extends BaseSms
 
 	}
 
-
 	function flatten(array $array) {
 	    $return = array();
 	    array_walk_recursive($array, function($a) use (&$return) { $return[] = $a; });
 	    return $return;
 	}
 
-
-
-
-	
-	
 	public function getCredit()
 	{
-		
 		$data = [   
 			'username' => $this->username,
 			'password' => $this->password
@@ -140,13 +126,11 @@ class SmsSoapAsync extends BaseSms
 		array_push($this->queue, $this->sendUrl);
 		array_push($this->queue, 'getCredit');
 		array_push($this->queue, $data);
-		
 	}
 	
 	
 	public function isDelivered($id)
-	{		
-		
+	{
 		$data = [   
 			'username' => $this->username,
 			'password' => $this->password,
@@ -166,7 +150,6 @@ class SmsSoapAsync extends BaseSms
 	
 	public function send($to,$from,$text,$isflash=false)
 	{
-		
 		$data = [   
 			'username' => $this->username,
 			'password' => $this->password,
@@ -182,16 +165,12 @@ class SmsSoapAsync extends BaseSms
 			array_push($this->queue, 'SendSimpleSMS');
 			
 		else array_push($this->queue, 'SendSimpleSMS2');
-			
-		
+
 		array_push($this->queue, $data);
-		
 	}
-	
 	
 	public function send2($to,$from,$text,$isflash=false,$udh="")
 	{
-		
 		$to = is_array($to) ? $to : array($to);
 		
 		
@@ -221,7 +200,6 @@ class SmsSoapAsync extends BaseSms
 	
 	public function sendWithDomain($to,$from,$text,$isflash,$domain)
 	{
-		
 		$data = [   
 			'username' => $this->username,
 			'password' => $this->password,
@@ -235,13 +213,11 @@ class SmsSoapAsync extends BaseSms
 		array_push($this->queue, $this->sendUrl);
 		array_push($this->queue, 'SendWithDomain');
 		array_push($this->queue, $data);
-		
 	}
 	
 	
 	public function getMessages($location,$index,$count,$from='')
 	{
-		
 		$data = [   
 			'username' => $this->username,
 			'password' => $this->password,
@@ -254,14 +230,11 @@ class SmsSoapAsync extends BaseSms
 		array_push($this->queue, $this->sendUrl);
 		array_push($this->queue, 'getMessages');
 		array_push($this->queue, $data);
-		
 	}
 	
 	
 	public function getMessagesStr($location,$index,$count,$from='')
 	{
-		
-		
 		$data = [   
 			'username' => $this->username,
 			'password' => $this->password,
@@ -274,13 +247,11 @@ class SmsSoapAsync extends BaseSms
 		array_push($this->queue, $this->receiveUrl);
 		array_push($this->queue, 'GetMessageStr');
 		array_push($this->queue, $data);
-		
 	}
 	
 	
 	public function getMessagesByDate($location,$index,$count,$from,$dateFrom,$dateTo)
-	{
-				
+	{	
 		$data = [   
 			'username' => $this->username,
 			'password' => $this->password,
@@ -294,14 +265,12 @@ class SmsSoapAsync extends BaseSms
 
 		array_push($this->queue, $this->receiveUrl);
 		array_push($this->queue, 'GetMessagesByDate');
-		array_push($this->queue, $data);		
-		
+		array_push($this->queue, $data);
 	}
 	
 	
 	public function getMessagesReceptions($msgId,$fromRows)
 	{
-		
 		$data = [   
 			'username' => $this->username,
 			'password' => $this->password,
@@ -317,7 +286,6 @@ class SmsSoapAsync extends BaseSms
 	
 	public function getUsersMessagesByDate($location,$index,$count,$from,$dateFrom,$dateTo)
 	{
-		
 		$data = [   
 			'username' => $this->username,
 			'password' => $this->password,
@@ -337,7 +305,6 @@ class SmsSoapAsync extends BaseSms
 	
 	public function remove($msgIds)
 	{
-		
 		$data = [   
 			'username' => $this->username,
 			'password' => $this->password,
@@ -347,7 +314,6 @@ class SmsSoapAsync extends BaseSms
 		array_push($this->queue, $this->receiveUrl);
 		array_push($this->queue, 'RemoveMessages2');
 		array_push($this->queue, $data);
-		
 	}
 	
 	
@@ -379,13 +345,11 @@ class SmsSoapAsync extends BaseSms
 		array_push($this->queue, $this->sendUrl);
 		array_push($this->queue, 'GetInboxCount');
 		array_push($this->queue, $data);
-		
 	}
 	
 	
 	public function sendWithSpeech($to,$from,$text,$speech)
 	{
-		
 		$data = [   
 			'username' => $this->username,
 			'password' => $this->password,
@@ -403,7 +367,6 @@ class SmsSoapAsync extends BaseSms
 	
 	public function sendWithSpeechSchduleDate($to,$from,$text,$speech,$scheduleDate)
 	{
-		
 		$data = [   
 			'username' => $this->username,
 			'password' => $this->password,
@@ -417,13 +380,11 @@ class SmsSoapAsync extends BaseSms
 		array_push($this->queue, $this->voiceUrl);
 		array_push($this->queue, 'SendSMSWithSpeechTextBySchduleDate');
 		array_push($this->queue, $data);
-		
 	}
 	
 	
 	public function getSendWithSpeech($recId)
 	{
-		
 		$data = [   
 			'username' => $this->username,
 			'password' => $this->password,
@@ -433,14 +394,11 @@ class SmsSoapAsync extends BaseSms
 		array_push($this->queue, $this->voiceUrl);
 		array_push($this->queue, 'GetSendSMSWithSpeechTextStatus');
 		array_push($this->queue, $data);
-		
 	}
 	
 	
 	public function getMultiDelivery($recId)
 	{
-		
-
 		$data = [   
 			'username' => $this->username,
 			'password' => $this->password,
@@ -455,7 +413,6 @@ class SmsSoapAsync extends BaseSms
 	
 	public function sendMultipleSchedule($to,$from,$text,$isflash,$scheduleDateTime,$period)
 	{
-		
 		$data = [   
 			'username' => $this->username,
 			'password' => $this->password,
@@ -489,13 +446,11 @@ class SmsSoapAsync extends BaseSms
 		array_push($this->queue, $this->scheduleUrl);
 		array_push($this->queue, 'AddSchedule');
 		array_push($this->queue, $data);
-		
 	}
 	
 	
 	public function getScheduleStatus($schId)
 	{
-		
 		$data = [   
 			'username' => $this->username,
 			'password' => $this->password,
@@ -505,7 +460,6 @@ class SmsSoapAsync extends BaseSms
 		array_push($this->queue, $this->scheduleUrl);
 		array_push($this->queue, 'GetScheduleStatus');
 		array_push($this->queue, $data);
-		
 	}
 	
 	
@@ -520,13 +474,11 @@ class SmsSoapAsync extends BaseSms
 		array_push($this->queue, $this->scheduleUrl);
 		array_push($this->queue, 'RemoveSchedule');
 		array_push($this->queue, $data);
-		
 	}
 	
 	
 	public function addUsance($to,$from,$text,$isflash,$scheduleStartDateTime,$repeatAfterDays,$scheduleEndDateTime)
 	{
-		
 		$data = [   
 			'username' => $this->username,
 			'password' => $this->password,
@@ -544,6 +496,6 @@ class SmsSoapAsync extends BaseSms
 		array_push($this->queue, $data);
 	}
 	
-	
-	
 }
+
+?>

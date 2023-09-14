@@ -6,7 +6,6 @@ namespace Melipayamak;
 
 class SmsSoap extends BaseSms
 {
-	
 	const PATH = "http://api.payamak-panel.com/post/%s.asmx?wsdl";
 	
 	protected $username;
@@ -19,7 +18,6 @@ class SmsSoap extends BaseSms
 	
 	public function __construct($username,$password)
 	{
-		
 		parent::__construct($username,$password);
 		
 		ini_set("soap.wsdl_cache_enabled", "0");
@@ -31,15 +29,12 @@ class SmsSoap extends BaseSms
 		$this->voiceUrl = $this->getPath(self::PATH,'Voice');
 		
 		$this->scheduleUrl = $this->getPath(self::PATH,'Schedule');
-		
 	}
 	
 	
 	public function getCredit()
 	{
-		
 		$client = new \SoapClient($this->sendUrl);
-		
 		
 		$data = 
 		[   
@@ -47,16 +42,13 @@ class SmsSoap extends BaseSms
 		'password' => $this->password
 		];
 		
-		
 		$result = $client->GetCredit($data)->GetCreditResult;
-		
 		
 		return $result;
 	}
 	
 	public function sendByBaseNumber($text,$to,$bodyId)
     {
-        
         $client = new \SoapClient($this->sendUrl);
         
         $data = 
@@ -68,23 +60,16 @@ class SmsSoap extends BaseSms
         'bodyId' => $bodyId
         ];
         
-        
-        $result;
-        
-        
         if(is_array($text))
             $result = $client->SendByBaseNumber($data)->SendByBaseNumberResult;
         else
             $result = $client->SendByBaseNumber2($data)->SendByBaseNumber2Result;
         
         return $result;
-        
     }
 	
 	public function isDelivered($id)
 	{
-		
-		
 		$client = new \SoapClient($this->sendUrl);
 		
 		
@@ -95,42 +80,15 @@ class SmsSoap extends BaseSms
 		'recIds'   => $id	
 		];
 		
-		
-// 		$result;
-		
-		
-// 		if(is_array($id)){
-			
-			
-// 			$data['recId'] = $id;
-			
-			
-// 			$result = $client->GetDeliveries3($data)->GetDeliveries3Result;
-			
-			
-// 		}
-		
-// 		else{
-// 			$data['recId'] = $id;
-					
-// 			$result = $client->GetDelivery2($data)->GetDelivery2Result;
-			
-			
-// 		}
 		$result = $client->GetDeliveries($data)->GetDeliveriesResult;
 		
 		return $result;
-		
-		
 	}
 	
 	
 	public function send($to,$from,$text,$isflash=false)
 	{
-		
-		
 		$client = new \SoapClient($this->sendUrl);
-		
 		
 		$data = 
 		[   
@@ -142,49 +100,24 @@ class SmsSoap extends BaseSms
 		'to' => $to
 		];
 		
-		
-		$result;
-		
-		
 		if(is_array($to)){
-			
-			
 			$result = $client->SendSimpleSMS($data)->SendSimpleSMSResult;
-			
-			
-		}
-		
-		else{
-			
-			
+		}else{
 			$result = $client->SendSimpleSMS2($data)->SendSimpleSMS2Result;
-			
-			
 		}
-		
 		
 		return $result;
-		
-		
-		
 	}
-	
 	
 	public function send2($to,$from,$text,$isflash=false,$udh="")
 	{
-		
-		
 		$client = new \SoapClient($this->sendUrl);
-		
 		
 		$to = is_array($to) ? $to : array($to);
 		
-		
 		$recId = array();
 		
-		
 		$status = 0x0;
-		
 		
 		$result = $client->SendSms([   
 		'username' => $this->username,
@@ -199,20 +132,13 @@ class SmsSoap extends BaseSms
 		]
 		);
 		
-		
 		return $result;
-		
-		
 	}
 	
 	
 	public function sendWithDomain($to,$from,$text,$isflash,$domain)
 	{
-		
-		
-		//P		roblem
 		$client = new \SoapClient($this->sendUrl);
-		
 		
 		$result = $client->SendWithDomain([   
 		'username' => $this->username,
@@ -225,19 +151,13 @@ class SmsSoap extends BaseSms
 		]
 		)->SendWithDomainResult;
 		
-		
 		return $result;
-		
-		
 	}
 	
 	
 	public function getMessages($location,$index,$count,$from='')
 	{
-		
-		
 		$client = new \SoapClient($this->sendUrl);
-		
 		
 		$result = $client->getMessages([   
 		'username' => $this->username,
@@ -249,19 +169,13 @@ class SmsSoap extends BaseSms
 		]
 		)->getMessagesResult;
 		
-		
 		return $result;
-		
-		
 	}
 	
 	
 	public function getMessagesStr($location,$index,$count,$from='')
 	{
-		
-		
 		$client = new \SoapClient($this->receiveUrl);
-		
 		
 		$result = $client->GetMessageStr([   
 		'username' => $this->username,
@@ -273,19 +187,12 @@ class SmsSoap extends BaseSms
 		]
 		)->GetMessageStrResult;
 		
-		
 		return $result;
-		
-		
 	}
-	
 	
 	public function getMessagesByDate($location,$index,$count,$from,$dateFrom,$dateTo)
 	{
-		
-		
 		$client = new \SoapClient($this->receiveUrl);
-		
 		
 		$result = $client->GetMessagesByDate([   
 		'username' => $this->username,
@@ -299,19 +206,12 @@ class SmsSoap extends BaseSms
 		]
 		)->GetMessagesByDateResult;
 		
-		
 		return $result;
-		
-		
 	}
-	
 	
 	public function getMessagesReceptions($msgId,$fromRows)
 	{
-		
-		
 		$client = new \SoapClient($this->receiveUrl);
-		
 		
 		$result = $client->GetMessagesReceptions([   
 		'username' => $this->username,
@@ -321,19 +221,12 @@ class SmsSoap extends BaseSms
 		]
 		)->GetMessagesReceptionsResult;
 		
-		
 		return $result;
-		
-		
 	}
-	
 	
 	public function getUsersMessagesByDate($location,$index,$count,$from,$dateFrom,$dateTo)
 	{
-		
-		
 		$client = new \SoapClient($this->receiveUrl);
-		
 		
 		$result = $client->GetUsersMessagesByDate([   
 		'username' => $this->username,
@@ -347,19 +240,13 @@ class SmsSoap extends BaseSms
 		]
 		)->GetUsersMessagesByDateResult;
 		
-		
 		return $result;
-		
-		
 	}
 	
 	
 	public function remove($msgIds)
 	{
-		
-		
 		$client = new \SoapClient($this->receiveUrl);
-		
 		
 		$result = $client->RemoveMessages2([   
 		'username' => $this->username,
@@ -370,17 +257,12 @@ class SmsSoap extends BaseSms
 		
 		
 		return $result;
-		
-		
 	}
 	
 	
 	public function getPrice($irancell,$mtn,$from,$text)
 	{
-		
-		
 		$client = new \SoapClient($this->sendUrl);
-		
 		
 		$result = $client->GetSmsPrice([   
 		'username' => $this->username,
@@ -392,19 +274,13 @@ class SmsSoap extends BaseSms
 		]
 		)->GetSmsPriceResult;
 		
-		
 		return $result;
-		
-		
 	}
 	
 	
 	public function getInboxCount($isRead=false)
 	{
-		
-		
 		$client = new \SoapClient($this->sendUrl);
-		
 		
 		$result = $client->GetInboxCount([   
 		'username' => $this->username,
@@ -415,18 +291,13 @@ class SmsSoap extends BaseSms
 		
 		
 		return $result;
-		
-		
 	}
 	
 	
 	public function sendWithSpeech($to,$from,$text,$speech)
 	{
-		
-		
 		$client = new \SoapClient($this->voiceUrl);
-		
-		
+
 		$result = $client->SendSMSWithSpeechText([   
 		'username' => $this->username,
 		'password' => $this->password,
@@ -437,19 +308,13 @@ class SmsSoap extends BaseSms
 		]
 		)->SendSMSWithSpeechTextResult;
 		
-		
 		return $result;
-		
-		
 	}
 	
 	
 	public function sendWithSpeechSchduleDate($to,$from,$text,$speech,$scheduleDate)
 	{
-		
-		
 		$client = new \SoapClient($this->voiceUrl);
-		
 		
 		$result = $client->SendSMSWithSpeechTextBySchduleDate([   
 		'username' => $this->username,
@@ -462,19 +327,13 @@ class SmsSoap extends BaseSms
 		]
 		)->SendSMSWithSpeechTextBySchduleDateResult;
 		
-		
 		return $result;
-		
-		
 	}
 	
 	
 	public function getSendWithSpeech($recId)
 	{
-		
-		
 		$client = new \SoapClient($this->voiceUrl);
-		
 		
 		$result = $client->GetSendSMSWithSpeechTextStatus([   
 		'username' => $this->username,
@@ -485,17 +344,12 @@ class SmsSoap extends BaseSms
 		
 		
 		return $result;
-		
-		
 	}
 	
 	
 	public function getMultiDelivery($recId)
 	{
-		
-		
 		$client = new \SoapClient($this->sendUrl);
-		
 		
 		$result = $client->GetMultiDelivery2([   
 		'username' => $this->username,
@@ -506,17 +360,12 @@ class SmsSoap extends BaseSms
 		
 		
 		return $result;
-		
-		
 	}
 	
 	
 	public function sendMultipleSchedule($to,$from,$text,$isflash,$scheduleDateTime,$period)
 	{
-		
-		
 		$client = new \SoapClient($this->scheduleUrl);
-		
 		
 		$result = $client->AddMultipleSchedule([   
 		'username' => $this->username,
@@ -530,19 +379,13 @@ class SmsSoap extends BaseSms
 		]
 		)->AddMultipleScheduleResult;
 		
-		
 		return $result;
-		
-		
 	}
 	
 	
 	public function sendSchedule($to,$from,$text,$isflash,$scheduleDateTime,$period)
 	{
-		
-		
 		$client = new \SoapClient($this->scheduleUrl);
-		
 		
 		$result = $client->AddSchedule([   
 		'username' => $this->username,
@@ -558,17 +401,12 @@ class SmsSoap extends BaseSms
 		
 		
 		return $result;
-		
-		
 	}
 	
 	
 	public function getScheduleStatus($schId)
 	{
-		
-		
 		$client = new \SoapClient($this->scheduleUrl);
-		
 		
 		$result = $client->GetScheduleStatus([   
 		'username' => $this->username,
@@ -577,19 +415,13 @@ class SmsSoap extends BaseSms
 		]
 		)->GetScheduleStatusResult;
 		
-		
 		return $result;
-		
-		
 	}
 	
 	
 	public function removeSchedule($schId)
 	{
-		
-		
 		$client = new \SoapClient($this->scheduleUrl);
-		
 		
 		$result = $client->RemoveSchedule([   
 		'username' => $this->username,
@@ -600,17 +432,12 @@ class SmsSoap extends BaseSms
 		
 		
 		return $result;
-		
-		
 	}
 	
 	
 	public function addUsance($to,$from,$text,$isflash,$scheduleStartDateTime,$repeatAfterDays,$scheduleEndDateTime)
 	{
-		
-		
 		$client = new \SoapClient($this->scheduleUrl);
-		
 		
 		$result = $client->AddUsance([   
 		'username' => $this->username,
@@ -625,13 +452,8 @@ class SmsSoap extends BaseSms
 		]
 		)->AddUsanceResult;
 		
-		
 		return $result;
-		
-		
 	}
-	
-	
-	
 }
 
+?>

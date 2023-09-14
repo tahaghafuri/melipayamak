@@ -1,10 +1,10 @@
 {
-    "name": "melipayamak/php",
+    "name": "tahaghafuri/melipayamak",
     "type": "library",
-    "version": "1.0.0",
+    "version": "2.0.0",
     "description": "A PHP wrapper for melipayamak's web services",
     "keywords": ["melipayamak", "sms", "api"],
-    "homepage": "http://github.com/Melipayamak/melipayamak-php",
+    "homepage": "http://github.com/tahaghafuri/melipayamak",
     "license": "MIT",
     "authors": [
         {
@@ -15,10 +15,14 @@
             "name": "Ara Code It",
             "email": "ahnara92@gmail.com"
         },
-	{
-	    "name": "Amirhossein Mehrvarzi",
-	    "email": "info@trigger.ir"
-	}
+        {
+            "name": "Amirhossein Mehrvarzi",
+            "email": "info@trigger.ir"
+        },
+        {
+            "name": "Taha Amin Ghafuri",
+            "email": "info@tahaghafuri.ir"
+        }
     ],
     "require": {
         "php": ">=5.4.0"
