@@ -18,7 +18,7 @@ composer.json
 
 
 ```json
-"tahaghafuri/melipayamak": "*1.0.0*"
+"tahaghafuri/melipayamak": "*"
 ```
 
 
