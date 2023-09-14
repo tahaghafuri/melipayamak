@@ -1,7 +1,6 @@
 {
     "name": "tahaghafuri/melipayamak",
     "type": "library",
-    "version": "2.0.0",
     "description": "A PHP wrapper for melipayamak's web services",
     "keywords": ["melipayamak", "sms", "api"],
     "homepage": "http://github.com/tahaghafuri/melipayamak",
